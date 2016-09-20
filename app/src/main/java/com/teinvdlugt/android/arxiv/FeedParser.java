@@ -14,8 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLParser {
-    private static final String TAG = "XMLParser";
+public class FeedParser {
+    private static final String TAG = "FeedParser";
 
     private static final String ns = null;
 

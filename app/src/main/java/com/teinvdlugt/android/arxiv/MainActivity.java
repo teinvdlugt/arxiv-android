@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -15,15 +16,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final String TAG = "MainActivity";
     private static final String URL = "http://export.arxiv.org/api/query?search_query=google"; // For debugging
 
-    private TextView resultTV;
+    private FeedAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new FeedAdapter(this, null);
+        recyclerView.setAdapter(adapter);
 
         getSupportLoaderManager().initLoader(LOADER_ID, FeedLoader.getBundle(URL), this);
-        resultTV = (TextView) findViewById(R.id.test);
     }
 
     @Override
@@ -37,21 +43,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             if (data == null) {
                 Toast.makeText(MainActivity.this, "Errortje", Toast.LENGTH_SHORT).show();
             } else {
-                StringBuilder sb = new StringBuilder();
-                for (Entry entry : data)
-                    sb.append(entry.getTitle()).append("\n");
-                resultTV.setText(sb.toString());
+                adapter.setData(data);
+                adapter.notifyDataSetChanged();
             }
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Entry>> loader) {
-        resultTV.setText("");
-    }
-
-    public void onClickButton(View view) {
-        resultTV.setText("");
-        getSupportLoaderManager().restartLoader(LOADER_ID, FeedLoader.getBundle(URL), this);
+        adapter.setData(null);
+        adapter.notifyDataSetChanged();
     }
 }

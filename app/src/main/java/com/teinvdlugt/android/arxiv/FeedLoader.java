@@ -63,7 +63,7 @@ public class FeedLoader extends AsyncTaskLoader<List<Entry>> {
         List<Entry> entries;
         InputStream is = null;
         try {
-            XMLParser parser = new XMLParser();
+            FeedParser parser = new FeedParser();
             is = createInputStream(urlString);
             entries = parser.parse(is);
         } finally {

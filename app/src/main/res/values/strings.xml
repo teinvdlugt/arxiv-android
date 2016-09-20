@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">arXiv Reader</string>
+    <string name="unknown_title">Unknown title</string>
 </resources>
