@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Entry>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Entry>>, FeedAdapter.OnItemClickListener {
     private static final int LOADER_ID = 0;
     private static final String TAG = "MainActivity";
     private static final String URL = "http://export.arxiv.org/api/query?search_query=google"; // For debugging
@@ -30,10 +30,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FeedAdapter(this, null);
+        adapter = new FeedAdapter(this, null, this);
         recyclerView.setAdapter(adapter);
 
         getSupportLoaderManager().initLoader(LOADER_ID, FeedLoader.getBundle(URL), this);
+    }
+
+    @Override
+    public void onClickItem(Entry item) {
+        startActivity(new Intent(this, ItemActivity.class).putExtra(ItemActivity.ENTRY, item));
     }
 
     @Override

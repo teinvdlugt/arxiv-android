@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        tools:text="Ditributed TensorFlow with MPI" />
+
+    <TextView
+        android:id="@+id/authors_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Abhinav Vishnu, Charles Siegel, Jeffrey Daily" />
+
+    <TextView
+        android:id="@+id/published_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="7 Mar 2016" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="@string/abstract_word" />
+
+    <TextView
+        android:id="@+id/abstract_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:textColor="@android:color/black"
+        tools:text="Lorem ipsum dolor sit amet" />
+
+    <Button
+        android:id="@+id/getPdf_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_pdf" />
+</LinearLayout>

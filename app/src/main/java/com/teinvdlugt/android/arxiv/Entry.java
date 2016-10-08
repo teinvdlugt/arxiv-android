@@ -1,10 +1,13 @@
 package com.teinvdlugt.android.arxiv;
 
+import android.content.Context;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Entry {
+public class Entry implements Serializable {
     private String id;
     private Date updated;
     private Date published;
@@ -86,5 +89,22 @@ public class Entry {
 
     public void setWebsiteUrl(String websiteUrl) {
         this.websiteUrl = websiteUrl;
+    }
+
+    public String formatAuthors(Context context, int max) {
+        if (authors.size() == 0) return context.getString(R.string.no_authors);
+
+        StringBuilder authorsText = new StringBuilder();
+        for (int i = 0; i < authors.size(); i++) {
+            authorsText.append(authors.get(i));
+            if (i != authors.size() - 1) {
+                authorsText.append(", ");
+                if (i == max - 1) {
+                    authorsText.append("...");
+                    break;
+                }
+            }
+        }
+        return authorsText.toString();
     }
 }

@@ -11,13 +11,22 @@ import java.text.DateFormat;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
-
     private List<Entry> data;
     private Context context;
+    private OnItemClickListener listener;
 
-    public FeedAdapter(Context context, List<Entry> data) {
+    public interface OnItemClickListener {
+        void onClickItem(Entry item);
+    }
+
+    public FeedAdapter(Context context, List<Entry> data, OnItemClickListener clickListener) {
         this.context = context;
         this.data = data;
+        this.listener = clickListener;
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -39,17 +48,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         this.data = data;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTV, authorsTV, publishedTV;
+        Entry entry;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             titleTV = (TextView) itemView.findViewById(R.id.titleTextView);
             authorsTV = (TextView) itemView.findViewById(R.id.authorsTextView);
             publishedTV = (TextView) itemView.findViewById(R.id.publishedTextView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickRoot();
+                }
+            });
         }
 
-        public void bind(Entry data) {
+        void bind(Entry data) {
+            this.entry = data;
             if (data.getTitle() != null)
                 titleTV.setText(data.getTitle());
             else titleTV.setText(R.string.unknown_title);
@@ -57,18 +74,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 publishedTV.setText(DateFormat.getDateInstance().format(data.getPublished()));
 
             // Display max 3 authors
-            StringBuilder authorsText = new StringBuilder();
-            for (int i = 0; i < data.getAuthors().size(); i++) {
-                authorsText.append(data.getAuthors().get(i));
-                if (i != data.getAuthors().size() - 1) {
-                    authorsText.append(", ");
-                    if (i == 2) {
-                        authorsText.append("...");
-                        break;
-                    }
-                }
+            authorsTV.setText(data.formatAuthors(context, 3));
+        }
+
+        private void onClickRoot() {
+            if (entry != null && listener != null) {
+                listener.onClickItem(entry);
             }
-            authorsTV.setText(authorsText);
         }
     }
 }

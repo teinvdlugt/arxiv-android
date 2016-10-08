@@ -10,4 +10,8 @@
     <string name="search_category">Category</string>
     <string name="search_id">Id</string>
     <string name="add_search_field">Add search field</string>
+    <string name="abstract_word">Abstract</string>
+    <string name="get_pdf">Get PDF</string>
+    <string name="no_authors">No authors</string>
+    <string name="details">Details</string>
 </resources>
