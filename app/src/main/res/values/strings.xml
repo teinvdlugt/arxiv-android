@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">arXiv Reader</string>
     <string name="unknown_title">Unknown title</string>
+    <string name="search">Search</string>
+    <string name="search_all">All</string>
+    <string name="search_title">Title</string>
+    <string name="search_author">Author</string>
+    <string name="search_comment">Comment</string>
+    <string name="search_abstract">Abstract</string>
+    <string name="search_category">Category</string>
+    <string name="search_id">Id</string>
+    <string name="add_search_field">Add search field</string>
 </resources>
